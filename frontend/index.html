@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SM Shetty Pay</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+<!-- LOGIN SCREEN -->
+
+<div
+    id="loginScreen"
+    class="login-screen"
+>
+
+    <div class="login-card">
+
+        <div class="logo">
+            ⚡
+        </div>
+
+        <h1>
+            SM SHETTY PAY
+        </h1>
+
+        <p>
+            Login to your account
+        </p>
+
+
+        <input
+            id="loginPhone"
+            type="tel"
+            maxlength="10"
+            placeholder="Mobile Number"
+            inputmode="numeric"
+        >
+
+
+        <input
+            id="loginPin"
+            type="password"
+            maxlength="4"
+            placeholder="Login PIN"
+            inputmode="numeric"
+        >
+
+
+        <button
+            class="primary-button"
+            onclick="loginUser()"
+        >
+            Login
+        </button>
+
+
+        <div
+            id="loginMessage"
+            class="login-message"
+        ></div>
+
+    </div>
+
+</div>
+    <!-- SPLASH SCREEN -->
+
+    <div id="splashScreen" class="splash-screen">
+
+        <div class="logo">
+            ⚡
+        </div>
+
+        <h1>SM SHETTY PAY</h1>
+
+        <p>Fast • Secure • Easy UPI</p>
+
+    </div>
+
+
+    <!-- MAIN APPLICATION -->
+
+    <div
+        id="app"
+        class="app hidden"
+    >
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="brand">
+                ⚡ SM SHETTY PAY
+            </div>
+
+            <button
+                class="account-button"
+                onclick="openAccount()"
+            >
+                👤 Account
+            </button>
+
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="container">
+<!-- ADMIN PANEL -->
+
+<section
+    id="adminPanel"
+    class="card hidden"
+>
+
+    <h2>
+        Admin Panel
+    </h2>
+
+    <p>
+        Add money to an account
+    </p>
+
+    <label>
+        Select Account
+    </label>
+
+    <select id="adminAccountSelect">
+        <option value="">
+            Loading accounts...
+        </option>
+    </select>
+
+    <label>
+        Amount
+    </label>
+
+    <input
+        id="adminAmount"
+        type="number"
+        min="1"
+        step="0.01"
+        placeholder="Enter amount"
+    >
+
+    <button
+        class="success-button"
+        onclick="adminAddMoney()"
+    >
+        Add Money
+    </button>
+
+    <div
+        id="adminMessage"
+        class="login-message"
+    ></div>
+
+</section>
+ 
+
+            <!-- BALANCE CARD -->
+
+            <section class="card balance-card">
+
+                <div class="section-label">
+                    Account Balance
+                </div>
+
+                <div
+                    id="balanceDisplay"
+                    class="balance"
+                >
+                    ••••••
+                </div>
+
+                <button
+                    id="balanceButton"
+                    class="primary-button"
+                    onclick="checkBalance()"
+                >
+                    Check Balance
+                </button>
+
+            </section>
+
+
+            <!-- QUICK PAY -->
+
+            <section class="card">
+
+                <h2>
+                    Quick Pay
+                </h2>
+
+                <button
+                    class="action-button qr-button"
+                    onclick="openScanner()"
+                >
+                    📷
+                    <span>
+                        Scan QR Code
+                    </span>
+                </button>
+
+
+                <button
+                    class="action-button upi-button"
+                    onclick="openUPIPayment()"
+                >
+                    💸
+                    <span>
+                        Pay by UPI ID
+                    </span>
+                </button>
+
+            </section>
+
+
+            <!-- HISTORY -->
+
+            <section class="history-section">
+
+                <h2>
+                         Transaction History
+        </h2>
+
+        <div
+            id="history"
+            class="history"
+        >
+            Loading...
+        </div>
+
+    </section>
+
+
+    <!-- TRANSACTION DETAILS MODAL -->
+
+    <div
+        id="transactionDetailsModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-card">
+
+            <button
+                class="close-button"
+                onclick="closeTransactionDetails()"
+            >
+                ✕
+            </button>
+
+            <div class="success-tick">
+                ✓
+            </div>
+
+            <h2>
+                Transaction Details
+            </h2>
+
+            <div
+                id="transactionDetails"
+                class="success-details"
+            ></div>
+
+            <button
+                class="primary-button"
+                onclick="closeTransactionDetails()"
+            >
+                Done
+            </button>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+ <!-- ACCOUNT MODAL -->
+
+<div
+    id="accountModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card">
+
+        <button
+            class="close-button"
+            onclick="closeAccount()"
+        >
+            ✕
+        </button>
+
+        <div class="profile-icon">
+            👤
+        </div>
+
+        <h2>
+            VIVEK YADAV
+        </h2>
+
+
+        <!-- ACCOUNT DETAILS -->
+
+        <div class="account-details">
+
+            <p>
+                <strong>UPI ID</strong>
+                <br>
+                9892354055@smshettypay
+            </p>
+
+            <p>
+                <strong>Phone</strong>
+                <br>
+                9892354055
+            </p>
+
+            <p>
+                <strong>Email</strong>
+                <br>
+                vy4767132@gmail.com
+            </p>
+
+        </div>
+
+
+        <!-- PERSONAL QR CODE -->
+
+        <div class="account-qr-section">
+
+            <h3>
+                My QR Code
+            </h3>
+
+            <div id="accountQRCode"></div>
+
+            <p class="history-upi">
+                Scan to pay this account
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- UPI PAYMENT MODAL -->
+
+        <div
+            id="upiModal"
+            class="modal hidden"
+        >
+
+            <div class="modal-card">
+
+                <button
+                    class="close-button"
+                    onclick="closeUPI()"
+                >
+                    ✕
+                </button>
+
+                <h2>
+                    Pay by UPI ID
+                </h2>
+
+                <label>
+                    Recipient UPI ID
+                </label>
+
+                <input
+                    id="upiInput"
+                    type="text"
+                    placeholder="example@smshettypay"
+                >
+
+                <button
+                    class="primary-button"
+                    onclick="resolveUPI()"
+                >
+                    Continue
+                </button>
+
+                <div
+                    id="upiResult"
+                    class="upi-result"
+                ></div>
+
+            </div>
+
+        </div>
+
+        
+
+        <!-- PAYMENT MODAL -->
+
+<div 
+    id="paymentModal" 
+    class="modal hidden" 
+>
+
+    <div class="modal-card">
+
+        <button 
+            class="close-button" 
+            onclick="closePayment()" 
+        >
+            ✕
+        </button>
+
+        <h2> 
+            Confirm Payment 
+        </h2>
+
+        <div 
+            id="recipientInfo" 
+            class="recipient-info" 
+        ></div>
+
+        <input 
+            id="amountInput" 
+            type="number" 
+            min="1" 
+            placeholder="Enter amount"
+        >
+
+        <input 
+            id="paymentPin" 
+            type="password" 
+            maxlength="4" 
+            placeholder="Payment PIN"
+        >
+
+        <button 
+            class="success-button" 
+            onclick="makePayment()" 
+        >
+            Pay Now
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- SUCCESS MODAL -->
+
+
+<div 
+    id="successModal" 
+    class="modal hidden" 
+>
+
+    <div class="modal-card success-card">
+
+        <div class="success-tick">
+            ✓
+        </div>
+
+        <h2>
+            Payment Successful
+        </h2>
+
+        <div 
+            id="successDetails" 
+            class="success-details"
+        ></div>
+
+        <button 
+            class="success-button" 
+            onclick="closeSuccess()" 
+        >
+            Done
+        </button>
+
+    </div>
+
+</div>
+
+        <!-- QR SCANNER MODAL -->
+
+        <div
+            id="scannerModal"
+            class="modal hidden"
+        >
+
+            <div class="modal-card">
+
+                <button
+                    class="close-button"
+                    onclick="closeScanner()"
+                >
+                    ✕
+                </button>
+
+                <h2>
+                    Scan QR Code
+                </h2>
+
+                <div
+                    id="reader"
+                    class="qr-reader"
+                ></div>
+
+                <p class="scanner-message">
+                    Point your camera at a UPI QR code.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- QR SCANNER LIBRARY -->
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<!-- QR CODE GENERATOR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- OUR JAVASCRIPT -->
+<script src="app.js"></script>
+
+</body>
+</html>

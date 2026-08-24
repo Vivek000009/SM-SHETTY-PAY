@@ -1,0 +1,598 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f0f14;
+    color: white;
+}
+
+
+/* SPLASH */
+
+.splash-screen {
+    position: fixed;
+    inset: 0;
+
+    background: #1e1e28;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 70px;
+}
+
+.splash-screen h1 {
+    margin-top: 10px;
+
+    font-size: 26px;
+
+    color: #ffd700;
+}
+
+.splash-screen p {
+    margin-top: 10px;
+
+    color: #999;
+}
+
+
+/* APP */
+
+.app {
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* HEADER */
+
+.header {
+    height: 65px;
+
+    background: #1e1e28;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 20px;
+}
+
+.brand {
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #ffd700;
+}
+
+.account-button {
+    border: none;
+
+    background: #2a2a3b;
+
+    color: white;
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+
+/* CONTAINER */
+
+.container {
+    width: 100%;
+
+    max-width: 500px;
+
+    margin: auto;
+
+    padding: 20px;
+}
+
+
+/* CARDS */
+
+.card {
+    background: #1e1e28;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+}
+
+.card h2,
+.history-section h2 {
+    font-size: 18px;
+
+    margin-bottom: 15px;
+}
+
+
+/* BALANCE */
+
+.section-label {
+    color: #888;
+
+    font-size: 14px;
+}
+
+.balance {
+    font-size: 30px;
+
+    font-weight: bold;
+
+    margin: 8px 0 15px;
+}
+
+
+/* BUTTONS */
+
+button {
+    cursor: pointer;
+}
+
+.primary-button {
+    width: 100%;
+
+    border: none;
+
+    background: #ffd700;
+
+    color: #000;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+.action-button {
+    width: 100%;
+
+    border: none;
+
+    background: #2a2a3b;
+
+    color: white;
+
+    padding: 15px;
+
+    margin-top: 10px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+.qr-button {
+    color: #00e676;
+}
+
+.upi-button {
+    color: #29b6f6;
+}
+
+
+/* HISTORY */
+
+.history-section {
+    margin-top: 20px;
+}
+
+.history-item {
+    background: #1e1e28;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.history-name {
+    font-weight: bold;
+}
+
+.history-upi {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.history-meta {
+    color: #888;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.history-amount {
+
+    margin-top: 8px;
+
+    font-weight: bold;
+
+}
+
+.history-amount.received {
+    color: #00e676;
+}
+
+.history-amount.sent {
+    color: #ff5252;
+}
+
+/* SENT / RECEIVED */
+
+.history-item .history-name:first-child {
+    color: #ffffff;
+}
+
+
+/* MODALS */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 500;
+}
+
+.modal-card {
+    position: relative;
+
+    background: #1e1e28;
+
+    width: 100%;
+
+    max-width: 400px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+}
+
+.close-button {
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #aaa;
+
+    font-size: 20px;
+}
+
+
+/* ACCOUNT */
+
+.profile-icon {
+    font-size: 55px;
+
+    text-align: center;
+
+    margin-bottom: 10px;
+}
+
+.modal-card h2 {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.account-details {
+    background: #2a2a3b;
+
+    padding: 15px;
+
+    border-radius: 12px;
+}
+
+.account-details p {
+    margin-bottom: 15px;
+
+    color: #aaa;
+}
+
+.account-details strong {
+    color: white;
+}
+
+
+/* INPUTS */
+
+.modal-card input {
+    width: 100%;
+
+    background: #2a2a3b;
+
+    color: white;
+
+    border: none;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    margin: 10px 0;
+}
+
+.modal-card label {
+    display: block;
+
+    color: #aaa;
+
+    margin-top: 10px;
+}
+
+
+/* UPI */
+
+.upi-result {
+    margin-top: 15px;
+
+    text-align: center;
+}
+
+.recipient-info {
+    background: #2a2a3b;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+/* SUCCESS */
+
+.success-card {
+    text-align: center;
+}
+
+.success-tick {
+    width: 80px;
+
+    height: 80px;
+
+    border-radius: 50%;
+
+    background: #00e676;
+
+    color: #000;
+
+    font-size: 55px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+.success-details {
+    background: #2a2a3b;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    margin: 20px 0;
+}
+
+.success-button {
+    width: 100%;
+
+    border: none;
+
+    background: #00e676;
+
+    color: #000;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+
+/* QR */
+
+.qr-reader {
+    width: 100%;
+
+    margin-top: 15px;
+}
+
+.scanner-message {
+    color: #888;
+
+    text-align: center;
+
+    margin-top: 10px;
+}
+
+/* ------------------------------------------
+   LOGIN SCREEN
+------------------------------------------ */
+
+.login-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #111118;
+
+    z-index: 9999;
+}
+
+
+.login-screen.hidden {
+
+    display: none;
+
+}
+
+
+.login-card {
+
+    width: 90%;
+
+    max-width: 380px;
+
+    background: #1e1e28;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+
+.login-card .logo {
+
+    font-size: 42px;
+
+    margin-bottom: 10px;
+}
+
+
+.login-card h1 {
+
+    margin-bottom: 8px;
+
+}
+
+
+.login-card p {
+
+    color: #888;
+
+    margin-bottom: 25px;
+}
+
+
+.login-card input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    margin-bottom: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #292934;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.login-card input:focus {
+
+    outline: 2px solid #00e676;
+}
+
+
+.login-card .primary-button {
+
+    width: 100%;
+
+    margin-top: 5px;
+}
+
+
+.login-message {
+
+    margin-top: 15px;
+
+    font-size: 14px;
+
+    min-height: 20px;
+}
+.account-qr-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.account-qr-section h3 {
+    margin-bottom: 15px;
+}
+
+#accountQRCode {
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    width: fit-content;
+    margin: 0 auto 10px;
+}
