@@ -14,8 +14,30 @@
         rel="stylesheet"
         href="style.css"
     >
-</head>
 
+    <!-- PWA MANIFEST -->
+    <link
+    rel="manifest"
+    href="manifest.json"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="icon-192.png"
+>
+
+<meta
+    name="theme-color"
+    content="#1e1e28"
+>
+
+    <!-- MOBILE APP THEME -->
+    <meta
+        name="theme-color"
+        content="#1e1e28"
+    >
+
+</head>
 <body>
 <!-- LOGIN SCREEN -->
 
@@ -533,6 +555,42 @@
 
 <!-- OUR JAVASCRIPT -->
 <script src="app.js"></script>
+
+<script>
+
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator
+                    .serviceWorker
+                    .register(
+                        "/SM-SHETTY-PAY/service-worker.js"
+                    )
+                    .then(() => {
+
+                        console.log(
+                            "Service Worker registered."
+                        );
+
+                    })
+                    .catch(error => {
+
+                        console.error(
+                            "Service Worker error:",
+                            error
+                        );
+
+                    });
+
+            }
+        );
+
+    }
+
+</script>
 
 </body>
 </html>
