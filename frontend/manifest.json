@@ -1,0 +1,22 @@
+{
+  "name": "SM Shetty Pay",
+  "short_name": "SM Pay",
+  "start_url": "/SM-SHETTY-PAY/",
+  "scope": "/SM-SHETTY-PAY/",
+  "display": "standalone",
+  "background_color": "#0f0f14",
+  "theme_color": "#1e1e28",
+  "description": "SM Shetty Pay UPI demo app",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
