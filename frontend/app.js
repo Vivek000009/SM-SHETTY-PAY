@@ -437,6 +437,86 @@ function hideBalance() {
         checkBalance;
 
 }
+
+// ------------------------------------------
+// REFRESH BALANCE AFTER PAYMENT
+// ------------------------------------------
+
+async function refreshBalanceAfterPayment() {
+
+    if (!MY_UPI || !MY_PIN) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/balance`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        upi_id: MY_UPI,
+
+                        pin: MY_PIN
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+            return;
+        }
+
+
+        // If the balance is currently visible,
+        // update it immediately.
+        const balanceDisplay =
+            document.getElementById(
+                "balanceDisplay"
+            );
+
+        const balanceButton =
+            document.getElementById(
+                "balanceButton"
+            );
+
+
+        if (
+            balanceButton.textContent.trim()
+            === "Hide Balance"
+        ) {
+
+            balanceDisplay.textContent =
+                `₹ ${Number(data.balance).toFixed(2)}`;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Balance refresh after payment error:",
+            error
+        );
+
+    }
+
+}
+
 // ------------------------------------------
 // UPI PAYMENT
 // ------------------------------------------
@@ -667,16 +747,15 @@ async function makePayment() {
 
             return;
         }
+closePayment();
 
+showSuccess(data);
 
-        closePayment();
+// Refresh transaction history immediately
+await loadHistory();
 
-
-        showSuccess(data);
-
-
-        loadHistory();
-
+// Refresh the logged-in user's balance
+await refreshBalanceAfterPayment();
     }
 
     catch (error) {
