@@ -1,4 +1,4 @@
-const CACHE_NAME = "sm-shetty-pay-v2";
+const CACHE_NAME = "sm-shetty-pay-v3";
 
 const APP_FILES = [
     "/SM-SHETTY-PAY/",
@@ -11,97 +11,106 @@ const APP_FILES = [
 ];
 
 
-self.addEventListener(
-    "install",
-    event => {
+self.addEventListener("install", event => {
 
-        self.skipWaiting();
+    self.skipWaiting();
 
-        event.waitUntil(
+    event.waitUntil(
+        caches
+            .open(CACHE_NAME)
+            .then(cache =>
+                cache.addAll(APP_FILES)
+            )
+    );
 
-            caches
-                .open(CACHE_NAME)
-                .then(cache => {
-                    return cache.addAll(APP_FILES);
-                })
+});
 
-        );
 
+self.addEventListener("activate", event => {
+
+    event.waitUntil(
+
+        caches
+            .keys()
+            .then(keys => {
+
+                return Promise.all(
+
+                    keys
+                        .filter(
+                            key =>
+                                key !== CACHE_NAME
+                        )
+                        .map(
+                            key =>
+                                caches.delete(key)
+                        )
+
+                );
+
+            })
+            .then(() =>
+                self.clients.claim()
+            )
+
+    );
+
+});
+
+
+self.addEventListener("fetch", event => {
+
+    // Do not cache POST requests
+    if (event.request.method !== "GET") {
+        return;
     }
-);
 
 
-self.addEventListener(
-    "activate",
-    event => {
+    const requestURL =
+        new URL(event.request.url);
 
-        event.waitUntil(
 
-            Promise.all([
+    // Only cache our GitHub Pages frontend.
+    // Do not cache Render API responses.
+    if (
+        requestURL.origin !==
+        self.location.origin
+    ) {
+        return;
+    }
+
+
+    event.respondWith(
+
+        fetch(event.request)
+
+            .then(response => {
+
+                const responseCopy =
+                    response.clone();
 
                 caches
-                    .keys()
-                    .then(keys => {
+                    .open(CACHE_NAME)
+                    .then(cache => {
 
-                        return Promise.all(
-
-                            keys
-                                .filter(
-                                    key =>
-                                        key !== CACHE_NAME
-                                )
-                                .map(
-                                    key =>
-                                        caches.delete(key)
-                                )
-
+                        cache.put(
+                            event.request,
+                            responseCopy
                         );
 
-                    }),
+                    });
 
-                self.clients.claim()
+                return response;
 
-            ])
+            })
 
-        );
+            .catch(() => {
 
-    }
-);
+                return caches.match(
+                    event.request
+                );
 
 
-self.addEventListener(
-    "fetch",
-    event => {
+    );
 
-        event.respondWith(
-
-            fetch(event.request)
-                .then(response => {
-
-                    const copy =
-                        response.clone();
-
-                    caches
-                        .open(CACHE_NAME)
-                        .then(cache => {
-                            cache.put(
-                                event.request,
-                                copy
-                            );
-                        });
-
-                    return response;
-
-                })
-                .catch(() => {
-
-                    return caches.match(
-                        event.request
-                    );
-
-                })
-
-        );
-
-    }
-);
+});

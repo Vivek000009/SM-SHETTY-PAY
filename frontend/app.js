@@ -172,13 +172,18 @@ async function loginUser() {
 
             updateAccountDisplay();
 
-            loadHistory();
+// Load transaction history immediately
+await loadHistory();
 
 
-            // Check whether the logged-in user
-            // is Vivek Yadav and show the
-            // Admin Panel if authorized.
-            await setupAdminPanel();
+// Check whether the logged-in user
+// is Vivek Yadav and show the
+// Admin Panel if authorized.
+await setupAdminPanel();
+
+
+// Start automatic transaction/balance refresh
+startAutoRefresh();
 
 
         }, 1500);
