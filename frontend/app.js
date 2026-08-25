@@ -2,6 +2,7 @@ const API_URL = "https://sm-shetty-pay.onrender.com";
 
 let MY_UPI = null;
 let MY_PIN = null;
+let autoRefreshTimer = null;
 
 let CURRENT_USER = {
     name: "",
@@ -514,6 +515,78 @@ async function refreshBalanceAfterPayment() {
         );
 
     }
+
+}
+
+// ------------------------------------------
+// AUTO REFRESH ACCOUNT
+// ------------------------------------------
+
+function startAutoRefresh() {
+
+    // Prevent multiple timers
+    if (autoRefreshTimer) {
+
+        clearInterval(
+            autoRefreshTimer
+        );
+
+    }
+
+
+    autoRefreshTimer =
+        setInterval(
+            async () => {
+
+                // Refresh transaction history
+                await loadHistory();
+
+
+                // Refresh balance only if
+                // the balance is currently visible
+
+                const balanceButton =
+                    document.getElementById(
+                        "balanceButton"
+                    );
+
+
+                if (
+                    balanceButton &&
+                    balanceButton
+                        .textContent
+                        .trim() ===
+                    "Hide Balance"
+                ) {
+
+                    await refreshBalanceAfterPayment();
+
+                }
+
+
+                // Refresh admin balances too
+                // if Vivek is logged in
+
+                const adminPanel =
+                    document.getElementById(
+                        "adminPanel"
+                    );
+
+
+                if (
+                    adminPanel &&
+                    !adminPanel.classList
+                        .contains("hidden")
+                ) {
+
+                    await setupAdminPanel();
+
+                }
+
+            },
+
+            5000
+        );
 
 }
 
